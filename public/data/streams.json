@@ -1,0 +1,114 @@
+[
+  {
+    "id": "stream01",
+    "streamerId": "member01",
+    "channelId": "UC00000000000000000000001",
+    "platform": "youtube",
+    "title": "VSPO Member 01 - Apex Practice",
+    "thumbnail": "/assets/dummy_thumb.svg",
+    "url": "https://youtu.be/dummy01",
+    "scheduledStartTime": "2026-01-09T10:00:00Z",
+    "startTime": "2026-01-09T10:05:00Z",
+    "ttl": "2026-01-10T00:00:00Z"
+  },
+  {
+    "id": "stream02",
+    "streamerId": "member02",
+    "channelId": "UC00000000000000000000002",
+    "platform": "youtube",
+    "title": "VSPO Member 02 - Valorant Ranked",
+    "thumbnail": "/assets/dummy_thumb.svg",
+    "url": "https://youtu.be/dummy02",
+    "scheduledStartTime": "2026-01-09T11:00:00Z",
+    "startTime": "2026-01-09T11:10:00Z",
+    "ttl": "2026-01-10T00:00:00Z"
+  },
+  {
+    "id": "stream03",
+    "streamerId": "member03",
+    "channelId": "vspo_member03",
+    "platform": "twitch",
+    "title": "VSPO Member 03 - Just Chatting",
+    "thumbnail": "/assets/dummy_thumb.svg",
+    "url": "https://youtu.be/dummy03",
+    "scheduledStartTime": "2026-01-09T12:30:00Z",
+    "ttl": "2026-01-10T00:00:00Z"
+  },
+  {
+    "id": "stream04",
+    "streamerId": "member04",
+    "channelId": "UC00000000000000000000004",
+    "platform": "youtube",
+    "title": "VSPO Member 04 - Minecraft",
+    "thumbnail": "/assets/dummy_thumb.svg",
+    "url": "https://youtu.be/dummy04",
+    "scheduledStartTime": "2026-01-09T13:00:00Z",
+    "ttl": "2026-01-10T00:00:00Z"
+  },
+  {
+    "id": "stream05",
+    "streamerId": "member05",
+    "channelId": "UC00000000000000000000005",
+    "platform": "youtube",
+    "title": "VSPO Member 05 - Variety Games",
+    "thumbnail": "/assets/dummy_thumb.svg",
+    "url": "https://youtu.be/dummy05",
+    "scheduledStartTime": "2026-01-09T14:15:00Z",
+    "ttl": "2026-01-10T00:00:00Z"
+  },
+  {
+    "id": "stream06",
+    "streamerId": "member06",
+    "channelId": "vspo_member06_tc",
+    "platform": "twitCasting",
+    "title": "VSPO Member 06 - Collab Stream",
+    "thumbnail": "/assets/dummy_thumb.svg",
+    "url": "https://youtu.be/dummy06",
+    "scheduledStartTime": "2026-01-09T15:00:00Z",
+    "ttl": "2026-01-10T00:00:00Z"
+  },
+  {
+    "id": "stream07",
+    "streamerId": "member07",
+    "channelId": "UC00000000000000000000007",
+    "platform": "youtube",
+    "title": "VSPO Member 07 - FPS Scrims",
+    "thumbnail": "/assets/dummy_thumb.svg",
+    "url": "https://youtu.be/dummy07",
+    "scheduledStartTime": "2026-01-09T16:00:00Z",
+    "ttl": "2026-01-10T00:00:00Z"
+  },
+  {
+    "id": "stream08",
+    "streamerId": "member08",
+    "channelId": "UC00000000000000000000008",
+    "platform": "youtube",
+    "title": "VSPO Member 08 - Karaoke",
+    "thumbnail": "/assets/dummy_thumb.svg",
+    "url": "https://youtu.be/dummy08",
+    "scheduledStartTime": "2026-01-09T17:30:00Z",
+    "ttl": "2026-01-10T00:00:00Z"
+  },
+  {
+    "id": "stream09",
+    "streamerId": "member09",
+    "channelId": "vspo_member09",
+    "platform": "twitch",
+    "title": "VSPO Member 09 - Retro Games",
+    "thumbnail": "/assets/dummy_thumb.svg",
+    "url": "https://youtu.be/dummy09",
+    "scheduledStartTime": "2026-01-09T19:00:00Z",
+    "ttl": "2026-01-10T00:00:00Z"
+  },
+  {
+    "id": "stream10",
+    "streamerId": "member10",
+    "channelId": "vspo_member10_tc",
+    "platform": "twitCasting",
+    "title": "VSPO Member 10 - Late Night Chat",
+    "thumbnail": "/assets/dummy_thumb.svg",
+    "url": "https://youtu.be/dummy10",
+    "scheduledStartTime": "2026-01-09T22:00:00Z",
+    "ttl": "2026-01-10T00:00:00Z"
+  }
+]

@@ -8,8 +8,6 @@ import {
   StreamResponse,
 } from "@types";
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
-import { firestore } from "@/firebase";
 import { vspoStreamContext, vspoStreamerContext } from "./context";
 import { useSettings } from "../setting";
 
@@ -50,49 +48,41 @@ export const VspoStreamProvider = ({ children }: { children: ReactNode }) => {
   const { filteredStreamerIds, filteredTitle } = useSettings();
 
   useEffect(() => {
-    const streamCollectionName = import.meta.env.VITE_STREAM_COLLECTION_NAME;
-    const streamerCollectionName = import.meta.env
-      .VITE_STREAMER_COLLECTION_NAME;
+    // Fetch dummy JSON instead of Firebase
+    const fetchStreams = fetch("/data/streams.json")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load streams.json");
+        return res.json();
+      })
+      .then((data: StreamResponse[]) => {
+        setStreamsResponse(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
 
-    if (!streamCollectionName || !streamerCollectionName) {
-      throw new Error(
-        "Environment variable not found: VITE_STREAM_COLLECTION_NAME, VITE_STREAMER_COLLECTION_NAME"
-      );
-    }
-
-    const unSubStream = onSnapshot(
-      collection(firestore, streamCollectionName),
-      (snapshot) => {
-        const newStreams = snapshot.docs.map(
-          (doc) => doc.data() as StreamResponse
-        );
-        setStreamsResponse((prev) => {
-          return [
-            ...newStreams,
-            ...prev.filter((s) => !newStreams.some(({ id }) => id === s.id)),
-          ];
-        });
-      }
-    );
-
-    const unSubStreamer = onSnapshot(
-      collection(firestore, streamerCollectionName),
-      (snapshot) => {
+    const fetchStreamers = fetch("/data/streamers.json")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load streamers.json");
+        return res.json();
+      })
+      .then((data: Record<string, StreamerResponse>) => {
         const map = Object.fromEntries(
-          snapshot.docs.map((doc) => {
-            return [
-              doc.id,
-              parseToStreamer(doc.id, doc.data() as StreamerResponse),
-            ];
-          })
+          Object.entries(data).map(([id, streamerRes]) => [
+            id,
+            parseToStreamer(id, streamerRes),
+          ])
         );
         setStreamerMap(map);
-      }
-    );
+      })
+      .catch((err) => {
+        console.error(err);
+      });
 
+    // No subscriptions to clean up; wait for both fetches
     return () => {
-      unSubStreamer();
-      unSubStream();
+      void fetchStreams;
+      void fetchStreamers;
     };
   }, []);
 

@@ -1,0 +1,254 @@
+{
+  "member01": {
+    "youtube": {
+      "id": "UC00000000000000000000001",
+      "name": "VSPO Member 01",
+      "icon": "/assets/avatar.svg",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "vspo_member01",
+      "name": "VSPO Member 01 (Twitch)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitch"
+    },
+    "twitCasting": {
+      "id": "vspo_member01_tc",
+      "name": "VSPO Member 01 (TwitCasting)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitCasting"
+    },
+    "order": 1
+  },
+  "member02": {
+    "youtube": {
+      "id": "UC00000000000000000000002",
+      "name": "VSPO Member 02",
+      "icon": "/assets/avatar.svg",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "vspo_member02",
+      "name": "VSPO Member 02 (Twitch)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitch"
+    },
+    "twitCasting": {
+      "id": "vspo_member02_tc",
+      "name": "VSPO Member 02 (TwitCasting)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitCasting"
+    },
+    "order": 2
+  },
+  "member03": {
+    "youtube": {
+      "id": "UC00000000000000000000003",
+      "name": "VSPO Member 03",
+      "icon": "/assets/avatar.svg",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "vspo_member03",
+      "name": "VSPO Member 03 (Twitch)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitch"
+    },
+    "twitCasting": {
+      "id": "vspo_member03_tc",
+      "name": "VSPO Member 03 (TwitCasting)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitCasting"
+    },
+    "order": 3
+  },
+  "member04": {
+    "youtube": {
+      "id": "UC00000000000000000000004",
+      "name": "VSPO Member 04",
+      "icon": "/assets/avatar.svg",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "vspo_member04",
+      "name": "VSPO Member 04 (Twitch)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitch"
+    },
+    "twitCasting": {
+      "id": "vspo_member04_tc",
+      "name": "VSPO Member 04 (TwitCasting)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitCasting"
+    },
+    "order": 4
+  },
+  "member05": {
+    "youtube": {
+      "id": "UC00000000000000000000005",
+      "name": "VSPO Member 05",
+      "icon": "/assets/avatar.svg",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "vspo_member05",
+      "name": "VSPO Member 05 (Twitch)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitch"
+    },
+    "twitCasting": {
+      "id": "vspo_member05_tc",
+      "name": "VSPO Member 05 (TwitCasting)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitCasting"
+    },
+    "order": 5
+  },
+  "member06": {
+    "youtube": {
+      "id": "UC00000000000000000000006",
+      "name": "VSPO Member 06",
+      "icon": "/assets/avatar.svg",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "vspo_member06",
+      "name": "VSPO Member 06 (Twitch)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitch"
+    },
+    "twitCasting": {
+      "id": "vspo_member06_tc",
+      "name": "VSPO Member 06 (TwitCasting)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitCasting"
+    },
+    "order": 6
+  },
+  "member07": {
+    "youtube": {
+      "id": "UC00000000000000000000007",
+      "name": "VSPO Member 07",
+      "icon": "/assets/avatar.svg",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "vspo_member07",
+      "name": "VSPO Member 07 (Twitch)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitch"
+    },
+    "twitCasting": {
+      "id": "vspo_member07_tc",
+      "name": "VSPO Member 07 (TwitCasting)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitCasting"
+    },
+    "order": 7
+  },
+  "member08": {
+    "youtube": {
+      "id": "UC00000000000000000000008",
+      "name": "VSPO Member 08",
+      "icon": "/assets/avatar.svg",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "vspo_member08",
+      "name": "VSPO Member 08 (Twitch)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitch"
+    },
+    "twitCasting": {
+      "id": "vspo_member08_tc",
+      "name": "VSPO Member 08 (TwitCasting)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitCasting"
+    },
+    "order": 8
+  },
+  "member09": {
+    "youtube": {
+      "id": "UC00000000000000000000009",
+      "name": "VSPO Member 09",
+      "icon": "/assets/avatar.svg",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "vspo_member09",
+      "name": "VSPO Member 09 (Twitch)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitch"
+    },
+    "twitCasting": {
+      "id": "vspo_member09_tc",
+      "name": "VSPO Member 09 (TwitCasting)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitCasting"
+    },
+    "order": 9
+  },
+  "member10": {
+    "youtube": {
+      "id": "UC00000000000000000000010",
+      "name": "VSPO Member 10",
+      "icon": "/assets/avatar.svg",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "vspo_member10",
+      "name": "VSPO Member 10 (Twitch)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitch"
+    },
+    "twitCasting": {
+      "id": "vspo_member10_tc",
+      "name": "VSPO Member 10 (TwitCasting)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitCasting"
+    },
+    "order": 10
+  },
+  "member11": {
+    "youtube": {
+      "id": "UC00000000000000000000011",
+      "name": "VSPO Member 11",
+      "icon": "/assets/avatar.svg",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "vspo_member11",
+      "name": "VSPO Member 11 (Twitch)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitch"
+    },
+    "twitCasting": {
+      "id": "vspo_member11_tc",
+      "name": "VSPO Member 11 (TwitCasting)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitCasting"
+    },
+    "order": 11
+  },
+  "member12": {
+    "youtube": {
+      "id": "UC00000000000000000000012",
+      "name": "VSPO Member 12",
+      "icon": "/assets/avatar.svg",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "vspo_member12",
+      "name": "VSPO Member 12 (Twitch)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitch"
+    },
+    "twitCasting": {
+      "id": "vspo_member12_tc",
+      "name": "VSPO Member 12 (TwitCasting)",
+      "icon": "/assets/avatar.svg",
+      "platform": "twitCasting"
+    },
+    "order": 12
+  }
+}
