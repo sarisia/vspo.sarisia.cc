@@ -39,7 +39,7 @@ export function DialogMenu({ trigger, content, onClickBack, ...props }: Props) {
           </>
         )}
         <ScrollArea className="max-h-[70vh] overflow-auto">
-          {content}
+          <div className="px-1">{content}</div>
         </ScrollArea>
       </DialogContent>
     </Dialog>

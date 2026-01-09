@@ -9,7 +9,7 @@ type Props = {
   trigger: ReactNode;
 } & Parameters<typeof useSettingMenu>[0];
 export function SettingMenu({ trigger, ...props }: Props) {
-  const { isDesktop, open, setOpen, goBack, ...rest } = useSettingMenu(props);
+  const { isDesktop, open, setOpen, ...rest } = useSettingMenu(props);
 
   if (isDesktop)
     return (
@@ -18,7 +18,6 @@ export function SettingMenu({ trigger, ...props }: Props) {
         onOpenChange={setOpen}
         trigger={trigger}
         content={<Content {...rest} />}
-        onClickBack={goBack}
       />
     );
 
@@ -29,16 +28,8 @@ export function SettingMenu({ trigger, ...props }: Props) {
       trigger={trigger}
       content={<Content {...rest} className="px-4 pb-2" />}
       footer={
-        <div
-          data-tab={rest.tab}
-          className="grid grid-cols-[repeat(auto-fit,minmax(0,1fr))] gap-4"
-        >
+        <div className="w-full">
           <Button onClick={() => setOpen(false)}>Close</Button>
-          {goBack && (
-            <Button variant="secondary" onClick={goBack}>
-              Back
-            </Button>
-          )}
         </div>
       }
     />

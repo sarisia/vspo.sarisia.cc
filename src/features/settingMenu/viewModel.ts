@@ -1,31 +1,16 @@
-import { SetStateAction, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useSettings, useSettingDispatch, Setting } from "@/providers/setting";
 import { Streamer } from "@types";
 
-type Tab = "main" | "streamerFilter";
-type Props = { initTab?: Tab; showGoBackButton?: boolean };
+type Props = Record<string, never>;
 
-export function useSettingMenu({ initTab = "main", showGoBackButton }: Props) {
+export function useSettingMenu(_props?: Props) {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery({ query: "(min-width: 768px)" });
 
-  const [tab, setTab] = useState<Tab>(initTab);
   const dispatch = useSettingDispatch();
   const settings = useSettings();
-  const isInitialRender = useRef(true);
-
-  function changeTab(tab: SetStateAction<Tab>) {
-    if (isInitialRender) isInitialRender.current = false;
-    setTab(tab);
-  }
-
-  useEffect(() => {
-    if (!open) {
-      changeTab(initTab);
-      isInitialRender.current = true;
-    }
-  }, [open]);
 
   const theme = {
     state: settings.theme,
@@ -48,13 +33,7 @@ export function useSettingMenu({ initTab = "main", showGoBackButton }: Props) {
   };
   const streamer = {
     state: settings.filteredStreamerIds,
-    onClickTrigger: () => changeTab("streamerFilter"),
   };
-
-  const goBack =
-    showGoBackButton && !["main"].includes(tab)
-      ? () => changeTab("main")
-      : undefined;
 
   function selectStreamer(id: Streamer["id"], isSelect: boolean) {
     dispatch({
@@ -79,9 +58,6 @@ export function useSettingMenu({ initTab = "main", showGoBackButton }: Props) {
     isMarqueeTitle,
     isDisplayHistory,
     streamer,
-    tab,
-    isInitialRender: isInitialRender.current,
-    goBack,
     selectStreamer,
     clearStreamer,
   };
