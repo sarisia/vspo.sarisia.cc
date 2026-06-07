@@ -1,5 +1,6 @@
 import { InView } from "react-intersection-observer";
 import { DailyStream } from "@types";
+import { Button } from "@/components/ui/button";
 import { DateLabel } from "../dateLabel";
 import { DummyStreamCard, StreamCard } from "../streamCard";
 import { useStreamGirdList } from "./viewModel";
@@ -24,13 +25,21 @@ function DailyStreamGrid({ date, streams }: DailyStream) {
 }
 
 export function StreamGridList() {
-  const { dailyStreams } = useStreamGirdList();
+  const { dailyStreams, isDisplayHistory, loadOlderHistory } =
+    useStreamGirdList();
 
   return (
     <div className="px-5 lg:px-15 pb-8">
       {dailyStreams.map(({ date, streams }) => (
         <DailyStreamGrid key={date} date={date} streams={streams} />
       ))}
+      {isDisplayHistory && (
+        <div className="flex justify-center py-6">
+          <Button variant="secondary" onClick={loadOlderHistory}>
+            Load more
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

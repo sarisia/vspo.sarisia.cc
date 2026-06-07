@@ -1,18 +1,23 @@
 /**
  * Generates mock data for local development.
- * Writes public/data/streams.json and public/data/streamers.json
- * with timestamps relative to the current time.
+ * Writes public/data/streamers.json and public/data/streams/<YYYY-MM-DD>.json
+ * (bucketed by UTC date of scheduledStartTime) with timestamps relative to the
+ * current time.
  *
  * Usage: node scripts/generateMockData.mjs
  */
 
-import { writeFileSync, mkdirSync } from "fs";
+import { writeFileSync, mkdirSync, existsSync, rmSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = join(__dirname, "../public/data");
 mkdirSync(outDir, { recursive: true });
+
+// Phase 1 leftover — the frontend no longer fetches a flat streams.json
+const legacyStreamsFile = join(outDir, "streams.json");
+if (existsSync(legacyStreamsFile)) rmSync(legacyStreamsFile);
 
 const now = new Date();
 const t = (offsetMinutes) =>
@@ -170,6 +175,36 @@ const streams = [
     endTime: t(-60),
     ttl: t(60 * 24 * 7 - 180),
   },
+
+  // Ended 2 days ago — non-consecutive past day, for progressive history paging
+  {
+    id: "yt_ended_002",
+    streamerId: "mock_streamer_c",
+    channelId: "carol_vspo",
+    platform: "twitCasting",
+    title: "【アーカイブ】2日前の配信",
+    thumbnail: "https://placehold.co/320x180?text=ENDED+2",
+    url: "https://twitcasting.tv/carol_vspo/movie/mock_ended_002",
+    scheduledStartTime: t(-60 * 24 * 2),
+    startTime: t(-60 * 24 * 2 + 2),
+    endTime: t(-60 * 24 * 2 + 90),
+    ttl: t(60 * 24 * 5),
+  },
+
+  // Ended 5 days ago — another gap, further back
+  {
+    id: "yt_ended_003",
+    streamerId: "mock_streamer_d",
+    channelId: "UC_mock_yt_d",
+    platform: "youtube",
+    title: "【アーカイブ】5日前の配信",
+    thumbnail: "https://placehold.co/320x180?text=ENDED+3",
+    url: "https://www.youtube.com/watch?v=mock_ended_003",
+    scheduledStartTime: t(-60 * 24 * 5),
+    startTime: t(-60 * 24 * 5 + 3),
+    endTime: t(-60 * 24 * 5 + 95),
+    ttl: t(60 * 24 * 2),
+  },
 ];
 
 // ── Write ─────────────────────────────────────────────────────────────────────
@@ -179,14 +214,31 @@ writeFileSync(
   JSON.stringify(streamers, null, 2),
   "utf-8"
 );
-writeFileSync(
-  join(outDir, "streams.json"),
-  JSON.stringify(streams, null, 2),
-  "utf-8"
-);
+
+// Bucket streams by UTC date of scheduledStartTime, write per-date files
+const toUtcDate = (isoString) => new Date(isoString).toISOString().slice(0, 10);
+
+const byDate = new Map();
+for (const stream of streams) {
+  const key = toUtcDate(stream.scheduledStartTime);
+  if (!byDate.has(key)) byDate.set(key, []);
+  byDate.get(key).push(stream);
+}
+
+const streamsDir = join(outDir, "streams");
+mkdirSync(streamsDir, { recursive: true });
+
+for (const [date, dateStreams] of byDate) {
+  writeFileSync(
+    join(streamsDir, `${date}.json`),
+    JSON.stringify(dateStreams, null, 2),
+    "utf-8"
+  );
+}
 
 console.log(
   `Mock data written to ${outDir}\n` +
-    `  streamers: ${Object.keys(streamers).length}\n` +
-    `  streams:   ${streams.length} (${streams.filter((s) => !s.endTime).length} live/upcoming, 1 ended)`
+    `  streamers:   ${Object.keys(streamers).length}\n` +
+    `  streams:     ${streams.length} (${streams.filter((s) => !s.endTime).length} live/upcoming, ${streams.filter((s) => s.endTime).length} ended)\n` +
+    `  date files:  ${byDate.size} (${[...byDate.keys()].sort().join(", ")})`
 );

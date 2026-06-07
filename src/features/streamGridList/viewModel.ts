@@ -1,5 +1,5 @@
 import { type Stream } from "@types";
-import { useVspoStream } from "@/providers/vspoStream";
+import { useVspoHistory, useVspoStream } from "@/providers/vspoStream";
 import { toYYYYMMDD } from "@/lib/utils";
 import { useMemo } from "react";
 import { useSettings } from "@/providers/setting";
@@ -20,6 +20,7 @@ function sortStreams(streams: Stream[]) {
 export function useStreamGirdList() {
   const streams = useVspoStream();
   const { isDisplayHistory } = useSettings();
+  const { loadOlderHistory } = useVspoHistory();
 
   const dailyStreams: DailyStream[] = useMemo(() => {
     const now = Date.now();
@@ -44,5 +45,5 @@ export function useStreamGirdList() {
       .map(([date, streams]) => ({ date, streams: sortStreams(streams) }));
   }, [streams, isDisplayHistory]);
 
-  return { dailyStreams };
+  return { dailyStreams, isDisplayHistory, loadOlderHistory };
 }

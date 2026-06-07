@@ -85,14 +85,31 @@ const run = async () => {
     JSON.stringify(streamers, null, 2),
     "utf-8",
   );
-  writeFileSync(
-    join(outDir, "streams.json"),
-    JSON.stringify(streams, null, 2),
-    "utf-8",
-  );
+
+  // Bucket streams by UTC date of scheduledStartTime, write per-date files
+  const toUtcDate = (isoString: string) =>
+    new Date(isoString).toISOString().slice(0, 10);
+
+  const byDate = new Map<string, Stream[]>();
+  for (const stream of streams) {
+    const key = toUtcDate(stream.scheduledStartTime);
+    if (!byDate.has(key)) byDate.set(key, []);
+    byDate.get(key)!.push(stream);
+  }
+
+  const streamsDir = join(outDir, "streams");
+  mkdirSync(streamsDir, { recursive: true });
+
+  for (const [date, dateStreams] of byDate) {
+    writeFileSync(
+      join(streamsDir, `${date}.json`),
+      JSON.stringify(dateStreams, null, 2),
+      "utf-8",
+    );
+  }
 
   console.log(
-    `Written ${streams.length} streams, ${Object.keys(streamers).length} streamers to ${outDir}`,
+    `Written ${streams.length} streams across ${byDate.size} date files, ${Object.keys(streamers).length} streamers to ${outDir}`,
   );
 };
 

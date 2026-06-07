@@ -1,0 +1,15 @@
+[
+  {
+    "id": "yt_ended_003",
+    "streamerId": "mock_streamer_d",
+    "channelId": "UC_mock_yt_d",
+    "platform": "youtube",
+    "title": "【アーカイブ】5日前の配信",
+    "thumbnail": "https://placehold.co/320x180?text=ENDED+3",
+    "url": "https://www.youtube.com/watch?v=mock_ended_003",
+    "scheduledStartTime": "2026-06-02T14:15:22.200Z",
+    "startTime": "2026-06-02T14:18:22.200Z",
+    "endTime": "2026-06-02T15:50:22.200Z",
+    "ttl": "2026-06-09T14:15:22.200Z"
+  }
+]

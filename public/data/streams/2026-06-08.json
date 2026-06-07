@@ -1,0 +1,13 @@
+[
+  {
+    "id": "twitch_upcoming_001",
+    "streamerId": "mock_streamer_d",
+    "channelId": "222222222",
+    "platform": "twitch",
+    "title": "【明日】コラボ配信！",
+    "thumbnail": "https://placehold.co/320x180?text=TOMORROW",
+    "url": "https://www.twitch.tv/dave_vspo",
+    "scheduledStartTime": "2026-06-08T14:15:22.200Z",
+    "ttl": "2026-06-15T14:15:22.200Z"
+  }
+]
