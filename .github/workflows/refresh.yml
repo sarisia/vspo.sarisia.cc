@@ -1,13 +1,17 @@
 name: Refresh stream data
 
 on:
-  # schedule:
-  #   # Runs every 15 minutes (GitHub Actions cron minimum is 5 min; actual timing is best-effort)
-  #   - cron: '*/15 * * * *'
-  # workflow_dispatch:
+  schedule:
+    # Runs every 15 minutes (GitHub Actions cron minimum is 5 min; actual timing is best-effort)
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
 
 jobs:
   refresh:
@@ -27,10 +31,31 @@ jobs:
           TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
           TWITCASTING_ACCESS_TOKEN: ${{ secrets.TWITCASTING_ACCESS_TOKEN }}
 
-      - name: Deploy data to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Generate token for pages repo
+        id: app-token
+        uses: actions/create-github-app-token@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./data
-          destination_dir: data
-          keep_files: true
+          app-id: ${{ secrets.GITHUBAPP_ID }}
+          private-key: ${{ secrets.GITHUBAPP_PRIVATE_KEY }}
+          owner: vspo-sarisia-cc
+          repositories: vspo-sarisia-cc.github.io
+
+      - name: Checkout pages repo
+        uses: actions/checkout@v3
+        with:
+          repository: vspo-sarisia-cc/vspo-sarisia-cc.github.io
+          ref: main
+          token: ${{ steps.app-token.outputs.token }}
+          path: pages
+
+      - name: Publish data to main
+        run: |
+          set -euo pipefail
+          git -C pages config user.name "mntaqua"
+          git -C pages config user.email "91774192+mntaqua@users.noreply.github.com"
+
+          mkdir -p pages/data
+          rsync -a data/ pages/data/              # add/update; NO --delete → keep history
+          git -C pages add -A
+          git -C pages commit -m "refresh: data $(date -u +%FT%TZ)" || { echo "no changes"; exit 0; }
+          git -C pages push origin main

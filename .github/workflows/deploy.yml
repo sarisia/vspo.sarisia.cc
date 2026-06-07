@@ -1,12 +1,16 @@
 name: Deploy to GitHub Pages
 
 on:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -21,18 +25,32 @@ jobs:
       - name: Build frontend
         run: npm ci && npm run build
 
-      - name: Generate data
-        run: npm run generate
-        env:
-          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
-          TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
-          TWITCASTING_ACCESS_TOKEN: ${{ secrets.TWITCASTING_ACCESS_TOKEN }}
-          DATA_OUT_DIR: build/data
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Generate token for pages repo
+        id: app-token
+        uses: actions/create-github-app-token@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          keep_files: true
+          app-id: ${{ secrets.GITHUBAPP_ID }}
+          private-key: ${{ secrets.GITHUBAPP_PRIVATE_KEY }}
+          owner: vspo-sarisia-cc
+          repositories: vspo-sarisia-cc.github.io
+
+      - name: Checkout pages repo
+        uses: actions/checkout@v3
+        with:
+          repository: vspo-sarisia-cc/vspo-sarisia-cc.github.io
+          ref: main
+          token: ${{ steps.app-token.outputs.token }}
+          path: pages
+
+      - name: Publish frontend to main
+        run: |
+          set -euo pipefail
+          rm -rf build/data                       # data dir is owned by refresh.yml
+          echo "vspo.sarisia.cc" > build/CNAME
+          git -C pages config user.name "mntaqua"
+          git -C pages config user.email "91774192+mntaqua@users.noreply.github.com"
+
+          rsync -a --delete --exclude data build/ pages/   # replace shell, keep data/
+          git -C pages add -A
+          git -C pages commit -m "deploy: frontend ${GITHUB_SHA::7}" || { echo "no changes"; exit 0; }
+          git -C pages push origin main
