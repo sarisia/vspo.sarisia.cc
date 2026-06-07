@@ -12,4 +12,3 @@ node_modules/
 .secret.local
 *.http
 *.log
-streamerMaster.json

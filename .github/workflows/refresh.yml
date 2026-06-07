@@ -1,0 +1,36 @@
+name: Refresh stream data
+
+on:
+  # schedule:
+  #   # Runs every 15 minutes (GitHub Actions cron minimum is 5 min; actual timing is best-effort)
+  #   - cron: '*/15 * * * *'
+  # workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Generate data
+        run: npm ci && npm run generate
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+          TWITCASTING_ACCESS_TOKEN: ${{ secrets.TWITCASTING_ACCESS_TOKEN }}
+
+      - name: Deploy data to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./data
+          destination_dir: data
+          keep_files: true

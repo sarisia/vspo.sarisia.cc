@@ -1,54 +1,17 @@
-import { DocumentReference, DocumentData } from "firebase-admin/firestore";
 import { Client } from "./baseClient";
-import { BaseStream, Channel, Config } from "../../types";
+import { BaseStream, Channel } from "../../types";
 import { calcTTL } from "../utils";
 
 export class TwitCastingClient extends Client {
-  private clientId: string;
-  private clientCode: string;
-  private clientSecret: string;
+  private accessToken: string;
 
-  constructor(
-    tokenDoc: DocumentReference<DocumentData>,
-    config: Config["twitCasting"],
-  ) {
-    super(tokenDoc, "twitCasting");
-    this.clientId = config.clientId.value();
-    this.clientCode = config.clientCode.value();
-    this.clientSecret = config.clientSecret.value();
+  constructor(accessToken: string) {
+    super("twitCasting");
+    this.accessToken = accessToken;
   }
 
-  // codeの更新がCFからできないので、機能しない
   protected override async generateToken(): Promise<string> {
-    const params = new URLSearchParams({
-      code: this.clientCode,
-      client_id: this.clientId,
-      client_secret: this.clientSecret,
-      grant_type: "authorization_code",
-      redirect_uri: "https://vspo-stream-schedule.web.app/",
-    });
-    const request = new Request(
-      "https://apiv2.twitcasting.tv/oauth2/access_token",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: params,
-      },
-    );
-
-    const response = await fetch(request);
-
-    if (!response.ok)
-      throw new Error(
-        `generateToken request failed. ${response.status}:${response.statusText}`,
-      );
-
-    const { ["access_token"]: token } = await response.json();
-
-    await this.setToken(token);
-    return token;
+    return this.accessToken;
   }
 
   override async getChannels(userIds: string[]): Promise<Channel[]> {
@@ -67,8 +30,6 @@ export class TwitCastingClient extends Client {
           },
         });
       };
-
-      // return this.request(createRequest);
 
       return fetch(createRequest(token));
     });
@@ -106,8 +67,6 @@ export class TwitCastingClient extends Client {
           },
         );
       };
-
-      // return this.request(createRequest);
 
       return fetch(createRequest(token));
     });

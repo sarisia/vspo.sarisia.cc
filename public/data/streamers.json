@@ -1,0 +1,50 @@
+{
+  "mock_streamer_a": {
+    "youtube": {
+      "id": "UC_mock_yt_a",
+      "name": "Alice Ch. / アリス",
+      "icon": "https://placehold.co/96x96?text=A",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "111111111",
+      "name": "alice_vspo",
+      "icon": "https://placehold.co/96x96?text=A",
+      "platform": "twitch"
+    },
+    "order": 1
+  },
+  "mock_streamer_b": {
+    "youtube": {
+      "id": "UC_mock_yt_b",
+      "name": "Bob Ch. / ボブ",
+      "icon": "https://placehold.co/96x96?text=B",
+      "platform": "youtube"
+    },
+    "order": 2
+  },
+  "mock_streamer_c": {
+    "twitCasting": {
+      "id": "carol_vspo",
+      "name": "Carol Ch. / キャロル",
+      "icon": "https://placehold.co/96x96?text=C",
+      "platform": "twitCasting"
+    },
+    "order": 3
+  },
+  "mock_streamer_d": {
+    "youtube": {
+      "id": "UC_mock_yt_d",
+      "name": "Dave Ch. / デイブ",
+      "icon": "https://placehold.co/96x96?text=D",
+      "platform": "youtube"
+    },
+    "twitch": {
+      "id": "222222222",
+      "name": "dave_vspo",
+      "icon": "https://placehold.co/96x96?text=D",
+      "platform": "twitch"
+    },
+    "order": 4
+  }
+}

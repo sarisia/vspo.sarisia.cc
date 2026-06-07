@@ -1,18 +1,15 @@
-import { DocumentReference, DocumentData } from "firebase-admin/firestore";
 import { Client } from "./baseClient";
 import { Channel, BaseStream } from "../../types";
 import { calcTTL } from "../utils";
 
 // TODO: Do not use api key
 export class YoutubeClient extends Client {
-  constructor(tokenDoc: DocumentReference<DocumentData>) {
-    super(tokenDoc, "youtube");
+  constructor(private apiKey: string) {
+    super("youtube");
   }
 
   protected override async generateToken(): Promise<string> {
-    const doc = await this.tokenDoc.get();
-    const token = doc.data()?.["youtube"];
-    return token;
+    return this.apiKey;
   }
 
   override async getChannels(userIds: string[]): Promise<Channel[]> {

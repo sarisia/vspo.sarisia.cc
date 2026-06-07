@@ -8,8 +8,6 @@ import {
   StreamResponse,
 } from "@types";
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
-import { firestore } from "@/firebase";
 import { vspoStreamContext, vspoStreamerContext } from "./context";
 import { useSettings } from "../setting";
 
@@ -50,55 +48,36 @@ export const VspoStreamProvider = ({ children }: { children: ReactNode }) => {
   const { filteredStreamerIds, filteredTitle } = useSettings();
 
   useEffect(() => {
-    const streamCollectionName = import.meta.env.VITE_STREAM_COLLECTION_NAME;
-    const streamerCollectionName = import.meta.env
-      .VITE_STREAMER_COLLECTION_NAME;
-
-    if (!streamCollectionName || !streamerCollectionName) {
-      throw new Error(
-        "Environment variable not found: VITE_STREAM_COLLECTION_NAME, VITE_STREAMER_COLLECTION_NAME"
-      );
-    }
-
-    const unSubStream = onSnapshot(
-      collection(firestore, streamCollectionName),
-      (snapshot) => {
-        const newStreams = snapshot.docs.map(
-          (doc) => doc.data() as StreamResponse
-        );
-        setStreamsResponse((prev) => {
-          return [
-            ...newStreams,
-            ...prev.filter((s) => !newStreams.some(({ id }) => id === s.id)),
-          ];
-        });
-      }
-    );
-
-    const unSubStreamer = onSnapshot(
-      collection(firestore, streamerCollectionName),
-      (snapshot) => {
-        const map = Object.fromEntries(
-          snapshot.docs.map((doc) => {
-            return [
-              doc.id,
-              parseToStreamer(doc.id, doc.data() as StreamerResponse),
-            ];
-          })
-        );
-        setStreamerMap(map);
-      }
-    );
-
-    return () => {
-      unSubStreamer();
-      unSubStream();
-    };
+    Promise.all([
+      fetch(`${import.meta.env.BASE_URL}data/streams.json`).then((r) =>
+        r.json()
+      ),
+      fetch(`${import.meta.env.BASE_URL}data/streamers.json`).then((r) =>
+        r.json()
+      ),
+    ])
+      .then(
+        ([streams, streamers]: [
+          StreamResponse[],
+          Record<string, StreamerResponse>,
+        ]) => {
+          setStreamsResponse(streams);
+          setStreamerMap(
+            Object.fromEntries(
+              Object.entries(streamers).map(([id, d]) => [
+                id,
+                parseToStreamer(id, d),
+              ])
+            )
+          );
+        }
+      )
+      .catch((e) => console.error("failed to load data", e));
   }, []);
 
   const streams = useMemo<Stream[]>(() => {
     const titleFilterLower = filteredTitle.trim().toLowerCase();
-    
+
     return streamResponses.reduce((results: Stream[], streamRes) => {
       const channel = streamerMap[streamRes.streamerId][streamRes.platform];
 

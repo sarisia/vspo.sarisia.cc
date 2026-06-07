@@ -1,13 +1,9 @@
-import { DocumentReference, DocumentData } from "firebase-admin/firestore";
 import { Platform, Channel, BaseStream } from "../../types";
 
 export abstract class Client {
   private token = "";
 
-  constructor(
-    protected tokenDoc: DocumentReference<DocumentData>,
-    private platform: Platform,
-  ) {}
+  constructor(protected platform: Platform) {}
 
   protected abstract generateToken(): Promise<string>;
   abstract getChannels(userIds: string[]): Promise<Channel[]>;
@@ -15,18 +11,12 @@ export abstract class Client {
 
   protected async getToken(): Promise<string> {
     if (this.token) return this.token;
-
-    const doc = await this.tokenDoc.get();
-    this.token = doc.data()?.[this.platform];
-
-    if (!this.token) this.token = await this.generateToken();
-
+    this.token = await this.generateToken();
     return this.token;
   }
 
   protected async setToken(token: string): Promise<void> {
     this.token = token;
-    await this.tokenDoc.update({ [this.platform]: token });
   }
 
   protected async request(

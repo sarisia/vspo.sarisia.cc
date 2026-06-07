@@ -1,4 +1,3 @@
-import { DocumentReference, DocumentData } from "firebase-admin/firestore";
 import { Client } from "./baseClient";
 import { BaseStream, Channel, Config } from "../../types";
 import { calcTTL } from "../utils";
@@ -7,13 +6,10 @@ export class TwitchClient extends Client {
   private clientId: string;
   private clientSecret: string;
 
-  constructor(
-    tokenDoc: DocumentReference<DocumentData>,
-    config: Config["twitch"],
-  ) {
-    super(tokenDoc, "twitch");
-    this.clientId = config.clientId.value();
-    this.clientSecret = config.clientSecret.value();
+  constructor(config: Config["twitch"]) {
+    super("twitch");
+    this.clientId = config.clientId;
+    this.clientSecret = config.clientSecret;
   }
 
   setThumbnailSize(url: string) {

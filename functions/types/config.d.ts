@@ -1,26 +1,12 @@
-import { StringParam, SecretParam } from "firebase-functions/lib/params/types";
-
 export type Config = {
-  // youtube: {
-  //   clientId: SecretParam;
-  //   clientSecret: SecretParam;
-  // };
+  youtube: {
+    apiKey: string;
+  };
   twitch: {
-    clientId: SecretParam;
-    clientSecret: SecretParam;
+    clientId: string;
+    clientSecret: string;
   };
   twitCasting: {
-    clientId: SecretParam;
-    clientCode: SecretParam;
-    clientSecret: SecretParam;
-  };
-  collection: {
-    secrets: StringParam;
-    master: StringParam;
-    streams: StringParam;
-    streamers: StringParam;
-  };
-  document: {
-    token: StringParam;
+    accessToken: string;
   };
 };

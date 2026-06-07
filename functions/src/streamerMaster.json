@@ -1,0 +1,15 @@
+{
+  "streamer_id_1": {
+    "youtube": "UC_YOUTUBE_CHANNEL_ID_1",
+    "twitch": "TWITCH_USER_ID_1",
+    "order": 1
+  },
+  "streamer_id_2": {
+    "youtube": "UC_YOUTUBE_CHANNEL_ID_2",
+    "order": 2
+  },
+  "streamer_id_3": {
+    "twitCasting": "TWITCASTING_SCREEN_NAME_3",
+    "order": 3
+  }
+}

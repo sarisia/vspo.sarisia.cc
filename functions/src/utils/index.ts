@@ -1,5 +1,4 @@
 export * from "./defineConfig";
-export * from "./sortStreams";
 
 export const calcTTL = (from: string, period = 7): Date => {
   const date = new Date(from);

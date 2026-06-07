@@ -11,5 +11,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  base: "/vspo-stream-schedule/",
+  server: { host: "0.0.0.0" },
   build: { outDir: "build" },
 });
