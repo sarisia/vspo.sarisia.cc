@@ -53,7 +53,7 @@ jobs:
           rm -rf build/data                       # data dir is owned by refresh.yml
           echo "vspo.sarisia.cc" > build/CNAME
 
-          rsync -a --delete --exclude data build/ pages/   # replace shell, keep data/
+          rsync -a --delete --exclude .git --exclude data build/ pages/   # replace shell, keep .git + data/
           git -C pages add -A
           git -C pages commit -m "deploy: frontend ${GITHUB_SHA::7}" || { echo "no changes"; exit 0; }
           git -C pages push origin main
