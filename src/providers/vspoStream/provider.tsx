@@ -156,12 +156,20 @@ export const VspoStreamProvider = ({ children }: { children: ReactNode }) => {
         return results;
       }
 
-      // filter by title
-      if (
-        titleFilterLower !== "" &&
-        !streamRes.title.toLowerCase().includes(titleFilterLower)
-      ) {
-        return results;
+      // filter by title (matches title, streamer name, platform, and URL)
+      if (titleFilterLower !== "") {
+        const searchable = [
+          streamRes.title,
+          channel.name,
+          streamRes.platform,
+          streamRes.url,
+        ]
+          .join(" ")
+          .toLowerCase();
+
+        if (!searchable.includes(titleFilterLower)) {
+          return results;
+        }
       }
 
       return results.concat(parseToStream(streamRes, channel));

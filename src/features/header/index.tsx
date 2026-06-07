@@ -5,9 +5,12 @@ import { TiFilter } from "react-icons/ti";
 import { TbTextDirectionRtl } from "react-icons/tb";
 import { IoLogoGithub } from "react-icons/io";
 import { BiMenu } from "react-icons/bi";
+import { IoSearch } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 import { ToggleButton } from "@/components/toggleButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { SettingMenu } from "../settingMenu";
 import { useHeader } from "./viewModel";
 
@@ -22,7 +25,7 @@ export function Header() {
     titleFilter,
     isDesktop,
   } = useHeader();
-  const cn = isScrolled ? "shadow-lg border-b" : "shadow-none";
+  const scrolledCn = isScrolled ? "shadow-lg border-b" : "shadow-none";
 
   return (
     <div
@@ -31,20 +34,44 @@ export function Header() {
       sticky top-0 left-0 
       flex items-center gap-2 
       rounded-b-lg bg-background z-10
-      transition-shadow duration-300 ${cn}`}
+      transition-shadow duration-300 ${scrolledCn}`}
     >
       <img src={logo} className="size-[40px]" />
       <div className="font-[Itim] text-2xl tracking-tighter text-primary hidden sm:block">
         Vspo stream schedule
       </div>
-      <Input
-        type="text"
-        placeholder="Filter by stream title..."
-        value={titleFilter.value}
-        onChange={(e) => titleFilter.onChange(e.target.value)}
-        className="max-w-xs ml-2 hidden md:block"
-      />
       <div className="ml-auto flex gap-2">
+        <div className="relative hidden md:flex items-center">
+          <IoSearch
+            className={cn(
+              "absolute left-3 size-4 pointer-events-none transition-colors",
+              titleFilter.value ? "text-vspo-primary" : "text-muted-foreground"
+            )}
+          />
+          <Input
+            type="text"
+            placeholder="Filter by title..."
+            value={titleFilter.value}
+            onChange={(e) => titleFilter.onChange(e.target.value)}
+            className={cn(
+              "pl-9 pr-9 w-64 shadow-xs transition-colors focus-visible:ring-vspo-primary",
+              titleFilter.value &&
+                "bg-vspo-primary/10 border-vspo-primary/50 text-vspo-primary"
+            )}
+          />
+          {titleFilter.value && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => titleFilter.onChange("")}
+              className="absolute right-0 h-9 w-9 hover:bg-transparent"
+            >
+              <IoClose className="size-4 text-muted-foreground hover:text-foreground" />
+            </Button>
+          )}
+        </div>
+      </div>
+      <div className="flex gap-2">
         {isDesktop && (
           <div>
             <ToggleButton {...themeState} className="rounded-none rounded-l-md">
