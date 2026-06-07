@@ -49,11 +49,13 @@ jobs:
           path: pages
 
       - name: Publish data to main
+        env:
+          GIT_AUTHOR_NAME: mntaqua
+          GIT_AUTHOR_EMAIL: 91774192+mntaqua@users.noreply.github.com
+          GIT_COMMITTER_NAME: mntaqua
+          GIT_COMMITTER_EMAIL: 91774192+mntaqua@users.noreply.github.com
         run: |
           set -euo pipefail
-          git -C pages config user.name "mntaqua"
-          git -C pages config user.email "91774192+mntaqua@users.noreply.github.com"
-
           mkdir -p pages/data
           rsync -a data/ pages/data/              # add/update; NO --delete → keep history
           git -C pages add -A
