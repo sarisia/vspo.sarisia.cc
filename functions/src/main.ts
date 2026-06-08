@@ -1,5 +1,6 @@
 import { writeFileSync, mkdirSync } from "fs";
-import { join } from "path";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
 import { YoutubeClient, TwitchClient, TwitCastingClient } from "./api";
 import { defineConfig } from "./utils";
 import { Platform, Stream } from "../types";
@@ -86,6 +87,7 @@ const run = async () => {
   });
 
   // Write output
+  const __dirname = dirname(fileURLToPath(import.meta.url));
   const outDir =
     process.env.DATA_OUT_DIR ?? join(__dirname, "../../data");
   mkdirSync(outDir, { recursive: true });
