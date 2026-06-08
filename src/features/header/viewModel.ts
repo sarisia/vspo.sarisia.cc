@@ -21,7 +21,7 @@ export function useHeader() {
   }, []);
 
   function onClickGithubIcon() {
-    window.open("https://github.com/mnsinri/vspo-stream-schedule");
+    window.open("https://github.com/sarisia/vspo.sarisia.cc");
   }
 
   const isDark = (() => {
