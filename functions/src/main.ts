@@ -2,7 +2,7 @@ import { writeFileSync, mkdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { YoutubeClient, TwitchClient, TwitCastingClient } from "./api";
-import { defineConfig } from "./utils";
+import { defineConfig, getFetchWindow } from "./utils";
 import { Platform, Stream } from "../types";
 import masterData from "./streamerMaster.json";
 
@@ -70,17 +70,27 @@ const run = async () => {
   }
 
   // Get streams → attach streamerId
+  // Fetch a ±7-day window (inclusive of today) so the batch picks up both
+  // recently-finished and upcoming streams, not just what's live right now.
+  const window = getFetchWindow();
   const [ytStreams, twitchStreams, twitCastStreams] = await Promise.all([
-    youtubeClient.getStreams([...idMap.youtube.keys()]),
-    twitchClient.getStreams([...idMap.twitch.keys()]),
-    twitClient.getStreams([...idMap.twitCasting.keys()]),
+    youtubeClient.getStreams([...idMap.youtube.keys()], window),
+    twitchClient.getStreams([...idMap.twitch.keys()], window),
+    twitClient.getStreams([...idMap.twitCasting.keys()], window),
   ]);
 
+  // A stream can surface from more than one endpoint within the window
+  // (e.g. live + archive) — dedupe by platform+id before attaching streamerId.
+  const seen = new Set<string>();
   const streams: Stream[] = [
     ...ytStreams,
     ...twitchStreams,
     ...twitCastStreams,
   ].flatMap((stream) => {
+    const dedupeKey = `${stream.platform}:${stream.id}`;
+    if (seen.has(dedupeKey)) return [];
+    seen.add(dedupeKey);
+
     const streamerId = idMap[stream.platform].get(stream.channelId);
     if (!streamerId) return [];
     return [{ ...stream, streamerId }];

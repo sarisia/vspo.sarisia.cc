@@ -1,4 +1,5 @@
 import { Platform, Channel, BaseStream } from "../../types";
+import { FetchWindow } from "../utils";
 
 export abstract class Client {
   private token = "";
@@ -7,7 +8,10 @@ export abstract class Client {
 
   protected abstract generateToken(): Promise<string>;
   abstract getChannels(userIds: string[]): Promise<Channel[]>;
-  abstract getStreams(userIds: string[]): Promise<BaseStream[]>;
+  abstract getStreams(
+    userIds: string[],
+    window: FetchWindow,
+  ): Promise<BaseStream[]>;
 
   protected async getToken(): Promise<string> {
     if (this.token) return this.token;

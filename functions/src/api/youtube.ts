@@ -1,6 +1,6 @@
 import { Client } from "./baseClient";
 import { Channel, BaseStream } from "../../types";
-import { calcTTL } from "../utils";
+import { calcTTL, FetchWindow } from "../utils";
 
 // TODO: Do not use api key
 export class YoutubeClient extends Client {
@@ -42,12 +42,15 @@ export class YoutubeClient extends Client {
     }));
   }
 
-  override async getStreams(userIds: string[]): Promise<BaseStream[]> {
+  override async getStreams(
+    userIds: string[],
+    window: FetchWindow,
+  ): Promise<BaseStream[]> {
     if (!userIds.length) return [];
 
     const _token = await this.getToken();
 
-    // アップロード済み動画から最新動画10本取得
+    // アップロード済み動画から最新動画50本取得 (±7日のウィンドウをカバーするため)
     const plRequests = userIds.map((id) => {
       // ChannelIdの2文字目を'U'にするとそのチャンネルのuploadedPlaylistIdになる
       const playlistId = id.replace(/(?<=^.{1})./, "U");
@@ -55,7 +58,7 @@ export class YoutubeClient extends Client {
         key: _token,
         part: "snippet",
         playlistId,
-        maxResults: "10",
+        maxResults: "50",
       });
 
       const request = new Request(
@@ -125,11 +128,14 @@ export class YoutubeClient extends Client {
     );
     return vResults.flatMap((j) =>
       j.items
-        .filter(
-          (item: any) =>
-            item.liveStreamingDetails?.activeLiveChatId != null &&
-            item.liveStreamingDetails?.scheduledStartTime != null,
-        )
+        .filter((item: any) => {
+          const scheduledStartTime =
+            item.liveStreamingDetails?.scheduledStartTime;
+          if (scheduledStartTime == null) return false; // not a live broadcast
+
+          const scheduled = new Date(scheduledStartTime);
+          return scheduled >= window.start && scheduled <= window.end;
+        })
         .map((item: any) => ({
           ...uploadedVideosMap.get(item.id),
           scheduledStartTime: item.liveStreamingDetails.scheduledStartTime,
