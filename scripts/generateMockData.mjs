@@ -27,6 +27,7 @@ const t = (offsetMinutes) =>
 
 const streamers = {
   mock_streamer_a: {
+    icon: "https://placehold.co/96x96?text=A",
     youtube: {
       id: "UC_mock_yt_a",
       name: "Alice Ch. / アリス",
@@ -42,6 +43,7 @@ const streamers = {
     order: 1,
   },
   mock_streamer_b: {
+    icon: "https://placehold.co/96x96?text=B",
     youtube: {
       id: "UC_mock_yt_b",
       name: "Bob Ch. / ボブ",
@@ -51,6 +53,7 @@ const streamers = {
     order: 2,
   },
   mock_streamer_c: {
+    icon: "https://placehold.co/96x96?text=C",
     twitCasting: {
       id: "carol_vspo",
       name: "Carol Ch. / キャロル",
@@ -60,6 +63,7 @@ const streamers = {
     order: 3,
   },
   mock_streamer_d: {
+    icon: "https://placehold.co/96x96?text=D",
     youtube: {
       id: "UC_mock_yt_d",
       name: "Dave Ch. / デイブ",

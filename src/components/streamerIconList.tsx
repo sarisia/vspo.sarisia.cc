@@ -15,7 +15,7 @@ export function StreamerIconList({
   ids = "[all]",
   renderIcon = (s) => (
     <Avatar key={s.id}>
-      <AvatarImage src={s.youtube.icon} />
+      <AvatarImage src={s.icon} />
     </Avatar>
   ),
   className,

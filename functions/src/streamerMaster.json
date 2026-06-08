@@ -1,15 +1,38 @@
 {
-  "streamer_id_1": {
-    "youtube": "UC_YOUTUBE_CHANNEL_ID_1",
-    "twitch": "TWITCH_USER_ID_1",
-    "order": 1
-  },
-  "streamer_id_2": {
-    "youtube": "UC_YOUTUBE_CHANNEL_ID_2",
-    "order": 2
-  },
-  "streamer_id_3": {
-    "twitCasting": "TWITCASTING_SCREEN_NAME_3",
-    "order": 3
-  }
+  "vspo_official": { "youtube": "UCuI5XaO-6VkOEhHao6ij7JA", "twitch": "vspo_official", "order": 1 },
+  "vspo_en": { "youtube": "UC7nyueGsb-5VDNPRh6pHtCA", "twitch": "vspoen", "order": 2 },
+
+  "kaga_sumire": { "youtube": "UCyLGcqYs7RsBb3L0SJfzGYA", "twitch": "kagasumire", "twitCasting": "sumire_kaga", "order": 3 },
+  "kaga_nazuna": { "youtube": "UCiMG6VdScBabPhJ1ZtaVmbw", "twitch": "nazunakaga", "twitCasting": "nazuna_kaga", "order": 4 },
+  "kogara_toto": { "youtube": "UCgTzsBI0DIRopMylJEDqnog", "twitCasting": "toto_kogara", "order": 5 },
+  "ichinose_uruha": { "youtube": "UC5LyYg6cCA4yHEYvtUsir3g", "twitch": "uruhaichinose", "twitCasting": "uruha_ichinose", "order": 6 },
+  "kurumi_noah": { "youtube": "UCIcAj6WkJ8vZ7DeJVgmeqKw", "twitch": "963noah", "twitCasting": "n0ah_kurumi", "order": 7 },
+  "tosaki_mimi": { "youtube": "UCnvVG9RbOW3J6Ifqo-zKLiw", "twitCasting": "mimi_tosaki", "order": 8 },
+  "asumi_sena": { "youtube": "UCF_U2GCKHvDz52jWdizppIA", "twitch": "asumisena", "twitCasting": "sena_asumi", "order": 9 },
+  "tachibana_hinano": { "youtube": "UCvUc0m317LWTTPZoBQV479A", "twitch": "hinanotachiba7", "twitCasting": "hinano_tachiba7", "order": 10 },
+  "hanabusa_lisa": { "youtube": "UCurEA8YoqFwimJcAuSHU0MQ", "twitch": "lisahanabusa", "twitCasting": "lisa_hanabusa", "order": 11 },
+  "kisaragi_ren": { "youtube": "UCGWa1dMU_sDCaRQjdabsVgg", "twitch": "ren_kisaragi__", "twitCasting": "ren_kisaragi__", "order": 12 },
+  "kaminari_qpi": { "youtube": "UCMp55EbT_ZlqiMS3lCj01BQ", "twitch": "kaminariqpi", "twitCasting": "xprprQchanx", "order": 13 },
+  "yakumo_beni": { "youtube": "UCjXBuHmWkieBApgBhDuJMMQ", "twitch": "yakumobeni", "twitCasting": "beni_yakumo", "order": 14 },
+  "aizawa_ema": { "youtube": "UCPkKpOHxEDcwmUAnRpIu-Ng", "twitch": "emtsmaru", "twitCasting": "ema_aizawa", "order": 15 },
+  "shinomiya_runa": { "youtube": "UCD5W21JqNMv_tV9nfjvF9sw", "twitch": "shinomiya_runa", "twitCasting": "runa_shinomiya", "order": 16 },
+  "nekota_tsuna": { "youtube": "UCIjdfjcSaEgdjwbgjxC3ZWg", "twitch": "tsuna_nekota", "twitCasting": "tsuna_nekota", "order": 17 },
+  "shiranami_ramune": { "youtube": "UC61OwuYOVuKkpKnid-43Twg", "twitch": "ramuneshiranami", "twitCasting": "ramune_shirana3", "order": 18 },
+  "komori_met": { "youtube": "UCzUNASdzI4PV5SlqtYwAkKQ", "twitch": "met_komori", "twitCasting": "met_komori", "order": 19 },
+  "yumeno_akari": { "youtube": "UCS5l_Y0oMVTjEos2LuyeSZQ", "twitch": "akarindao", "twitCasting": "akarindaooo", "order": 20 },
+  "yano_kuromu": { "youtube": "UCX4WL24YEOUYd7qDsFSLDOw", "twitch": "kuromuyano", "order": 21 },
+  "tsumugi_kokage": { "youtube": "UC-WX1CXssCtCtc2TNIRnJzg", "twitch": "kokagetsumugi", "order": 22 },
+  "sendo_yuuhi": { "youtube": "UCuDY3ibSP2MFRgf7eo3cojg", "twitch": "sendo_yuuhi", "twitCasting": "c:sendoyuuhi", "order": 23 },
+  "choya_hanabi": { "youtube": "UCL9hJsdk9eQa0IlWbFB2oRg", "twitch": "choyahanabi", "order": 24 },
+  "amayui_moka": { "youtube": "UC8vKBjGY2HVfbW9GAmgikWw", "order": 25 },
+  "ginjo_saine": { "youtube": "UC2xXx1m1jeL0W84_0jTg-Yw", "twitch": "saineginjo", "twitCasting": "saine_ginjo", "order": 26 },
+  "tatsumaki_chise": { "youtube": "UCoW8qQy80mKH0RJTKAK-nNA", "order": 27 },
+
+  "remia_aotsuki": { "youtube": "UCCra1t-eIlO3ULyXQQMD9Xw", "twitch": "remiaaotsuki", "order": 28 },
+  "arya_kuroha": { "youtube": "UCLlJpxXt6L5d-XQ0cDdIyDQ", "twitch": "aryakuroha", "order": 29 },
+  "jira_jisaki": { "youtube": "UCeCWj-SiJG9SWN6wGORiLmw", "twitch": "jirajisaki", "order": 30 },
+  "narin_mikure": { "youtube": "UCKSpM183c85d5V2cW5qaUjA", "twitch": "narinmikure", "order": 31 },
+  "riko_solari": { "youtube": "UC7Xglp1fske9zmRe7Oj8YyA", "twitch": "rikosolari", "order": 32 },
+  "eris_suzukami": { "youtube": "@erissuzukami", "twitch": "erissuzukami", "order": 33 },
+  "juno_umezono": { "youtube": "UCRJV_1aV4aZjFAEUn6o5arw", "order": 34 }
 }

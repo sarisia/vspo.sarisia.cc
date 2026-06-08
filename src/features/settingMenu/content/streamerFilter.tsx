@@ -17,11 +17,16 @@ export function StreamerFilter({
 }: Props) {
   const renderIcon = (streamer: Streamer) => {
     const isSelected = ids.includes(streamer.id);
+    const name =
+      streamer.youtube?.name ??
+      streamer.twitch?.name ??
+      streamer.twitCasting?.name ??
+      streamer.id;
     return (
       <div key={streamer.id} className="flex justify-center items-center">
         <img
-          src={streamer.youtube.icon}
-          alt={streamer.youtube.name}
+          src={streamer.icon}
+          alt={name}
           data-selected={isSelected}
           className="border-3 rounded-xl shadow-md data-[selected=true]:border-vspo-primary hover:scale-95 transition-all duration-150"
           onClick={() => onClickIcon(streamer.id, isSelected)}

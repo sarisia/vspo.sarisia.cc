@@ -46,7 +46,7 @@ export class TwitchClient extends Client {
     if (!userIds.length) return [];
 
     const createRequest = (token: string) => {
-      const query = new URLSearchParams(userIds.map((id) => ["id", id]));
+      const query = new URLSearchParams(userIds.map((id) => ["login", id]));
       return new Request(`https://api.twitch.tv/helix/users?${query}`, {
         method: "GET",
         headers: {
@@ -60,7 +60,10 @@ export class TwitchClient extends Client {
     const bodies = await this.request(createRequest);
 
     return bodies.data.map((v: any) => ({
-      id: v.id,
+      // streamerMaster identifies Twitch channels by login name, not the
+      // numeric user id — keep that as the canonical id so it round-trips
+      // through idMap in main.ts.
+      id: v.login,
       name: v.display_name,
       icon: v.profile_image_url,
       platform: "twitch",
@@ -73,7 +76,7 @@ export class TwitchClient extends Client {
     const createRequest = (token: string) => {
       const query = new URLSearchParams([
         ["first", `${userIds.length}`],
-        ...userIds.map((id) => ["user_id", id]),
+        ...userIds.map((id) => ["user_login", id]),
       ]);
       return new Request(`https://api.twitch.tv/helix/streams?${query}`, {
         method: "GET",
@@ -89,7 +92,8 @@ export class TwitchClient extends Client {
 
     return body.data.map((v: any) => ({
       id: v.id,
-      channelId: v.user_id,
+      // see getChannels — login is the canonical id used in idMap
+      channelId: v.user_login,
       title: v.title,
       thumbnail: this.setThumbnailSize(v.thumbnail_url),
       url: `https://www.twitch.tv/${v.user_login}`,

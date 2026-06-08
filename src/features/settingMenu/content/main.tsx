@@ -78,7 +78,7 @@ export function Main({
               return (
                 <img
                   key={s.id}
-                  src={s.youtube.icon}
+                  src={s.icon}
                   className="absolute top-0 h-7 aspect-square rounded-[50%] object-cover border"
                   style={{ right: 20 * n, zIndex: n }}
                 />

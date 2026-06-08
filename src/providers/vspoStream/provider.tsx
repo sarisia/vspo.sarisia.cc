@@ -68,7 +68,7 @@ const parseToStreamer = (
   streamerRes: StreamerResponse
 ): Streamer => {
   const entries = Object.entries(streamerRes).map(([key, data]) => {
-    if (key === "order") return [key, data];
+    if (key === "order" || key === "icon") return [key, data];
 
     const { id, name, icon } = data as ChannelResponse;
     return [key, { id, name, icon }];

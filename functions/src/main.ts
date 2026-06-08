@@ -58,6 +58,16 @@ const run = async () => {
     { ...baseStreamers },
   );
 
+  // The filter-UI icon comes from whichever channel's data is available —
+  // not every streamer has all platforms (or even YouTube), so this can't
+  // be hard-coded to one platform.
+  for (const streamer of Object.values(streamers)) {
+    streamer.icon =
+      streamer.youtube?.icon ??
+      streamer.twitch?.icon ??
+      streamer.twitCasting?.icon;
+  }
+
   // Get streams → attach streamerId
   const [ytStreams, twitchStreams, twitCastStreams] = await Promise.all([
     youtubeClient.getStreams([...idMap.youtube.keys()]),

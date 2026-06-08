@@ -1,0 +1,15 @@
+[
+  {
+    "id": "yt_ended_002",
+    "streamerId": "mock_streamer_c",
+    "channelId": "carol_vspo",
+    "platform": "twitCasting",
+    "title": "【アーカイブ】2日前の配信",
+    "thumbnail": "https://placehold.co/320x180?text=ENDED+2",
+    "url": "https://twitcasting.tv/carol_vspo/movie/mock_ended_002",
+    "scheduledStartTime": "2026-06-06T15:50:58.037Z",
+    "startTime": "2026-06-06T15:52:58.037Z",
+    "endTime": "2026-06-06T17:20:58.037Z",
+    "ttl": "2026-06-13T15:50:58.037Z"
+  }
+]
