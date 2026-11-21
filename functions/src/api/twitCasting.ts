@@ -36,9 +36,10 @@ export class TwitCastingClient extends Client {
 
     const responses = await Promise.all(requests);
 
-    if (responses.some((r) => !r.ok)) return [];
-
-    const bodies = await Promise.all(responses.map((r) => r.json()));
+    // One bad/renamed screen id must not drop every TwitCasting channel.
+    const bodies = await Promise.all(
+      responses.filter((r) => r.ok).map((r) => r.json()),
+    );
 
     return bodies.map((v) => ({
       id: v.user.screen_id,
@@ -77,20 +78,20 @@ export class TwitCastingClient extends Client {
       fetch(`https://apiv2.twitcasting.tv/users/${id}/current_live`, {
         method: "GET",
         headers,
-      }),
+      }).then(async (response) =>
+        response.ok ? [{ ...(await response.json()), screenId: id }] : [],
+      ),
     );
 
-    const responses = await Promise.all(requests);
-    const bodies = await Promise.all(
-      responses.filter((r) => r.ok).map((r) => r.json()),
-    );
+    const bodies = (await Promise.all(requests)).flat();
 
     return bodies.map((v) => {
       const startTime = new Date(v.movie.created * 1000).toISOString();
 
       return {
         id: v.movie.id,
-        channelId: v.movie.user_id,
+        // movie.user_id is the numeric id; idMap keys on screen_id
+        channelId: v.screenId,
         title: v.movie.title,
         thumbnail: v.movie.large_thumbnail,
         url: v.movie.link,
@@ -116,7 +117,7 @@ export class TwitCastingClient extends Client {
       }).then(async (response) => {
         if (!response.ok) return [];
         const body = await response.json();
-        return body.movies ?? [];
+        return (body.movies ?? []).map((v: any) => ({ ...v, screenId: id }));
       }),
     );
 
@@ -130,7 +131,7 @@ export class TwitCastingClient extends Client {
       return [
         {
           id: v.id,
-          channelId: v.user_id,
+          channelId: v.screenId,
           title: v.title,
           thumbnail: v.large_thumbnail,
           url: v.link,

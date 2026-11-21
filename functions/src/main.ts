@@ -122,7 +122,14 @@ const run = async () => {
   const streamsDir = join(outDir, "streams");
   mkdirSync(streamsDir, { recursive: true });
 
+  // The window starts mid-day, so its first date only holds a partial set of
+  // streams — writing it would clobber the fuller file from earlier runs.
+  const firstFullDate = toUtcDate(
+    new Date(new Date(window.start).setUTCHours(24, 0, 0, 0)).toISOString(),
+  );
+
   for (const [date, dateStreams] of byDate) {
+    if (date < firstFullDate) continue;
     writeFileSync(
       join(streamsDir, `${date}.json`),
       JSON.stringify(dateStreams, null, 2),
